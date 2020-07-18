@@ -66,9 +66,10 @@ def sortListing(num, location):
     conn = sqlite3.connect('helpout.db')
     cursor = conn.cursor()
     length = cursor.execute("SELECT COUNT(*) FROM listings")
+    len = length.fetchone()[0]
 
-    for i in range(length):
-        result = cursor.execute("SELECT person FROM listings WHERE location="+str(location))
+    for i in range(len):
+        result = cursor.execute("SELECT location FROM listings WHERE id="+str(i))
         suburb = result.fetchone()[0]
 
         subCheck = geolocator.geocode(suburb)
