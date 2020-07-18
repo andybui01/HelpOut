@@ -52,7 +52,6 @@ def nextID():
     conn.close()
     return id
 
-
 def sortListing(num, location):
     num = int(num)
 
@@ -100,7 +99,6 @@ def createListing(personID = None, title = None, desc = None, commitment = None,
     conn = sqlite3.connect('helpout.db')
     cursor = conn.cursor()
     id = nextID()
-    print(title, desc, commitment)
     items = (str(id), title, desc, commitment, location, personID, str(-1), 0)
     cursor.execute("INSERT INTO listings VALUES (?,?,?,?,?,?,?,?)", items)
     conn.commit()
