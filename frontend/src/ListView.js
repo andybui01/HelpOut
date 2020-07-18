@@ -14,11 +14,11 @@ class ListView extends Component{
 }*/
 
 const ListView = (props) => {
-    const{listings, adminRemoveListing} = props
+    const{listings/*, adminRemoveListing*/} = props
     return(
     <>
     <ListHeader />
-    <ListBody listings = {listings} adminRemoveListing={adminRemoveListing} />
+    <ListBody listings = {listings}/* adminRemoveListing={adminRemoveListing}*/ />
     </>
     )
 }
@@ -35,23 +35,20 @@ const ListBody = (props) => {
         return (<>
             <tr key={index}>
                 <th>{row.title}</th>
-                <th>{row.generalLocation}</th>
+                <th>{row.Suburb}</th>
             </tr>
             <tr>
-                <td colspan="2">{row.desc}</td>
+                <td colSpan="2">{row.desc}</td>
             </tr>
             <tr>
-                <td>
+                <td colSpan="2">
                     <button>Help out person name</button>
-                </td>
-                <td>
-                    <button onClick={()=> props.adminRemoveListing(index)}> Delete Listing </button>
-                </td>
+                </td> 
             </tr>
         </>)
         })
     return (
-        <lbody>{listRows}</lbody>
+        <table><tbody>{listRows}</tbody></table>
     )
 }
 
