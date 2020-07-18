@@ -1,21 +1,33 @@
 from backend import database
 
 def getName(id):
-    db = database.getVolunteersDatabase()
-    return db[id]["name"]
+    conn = sqlite3.connect('helpout.db')
+    cursor = conn.cursor()
+    result = cursor.execute("SELECT name FROM volunteers WHERE id="+str(id))
+    name = result.fetchone()[0]
+    conn.close()
+    return name
 
 def getContact(id):
-    db = database.getVolunteersDatabase()
-    return db[id]["contact"]
+    conn = sqlite3.connect('helpout.db')
+    cursor = conn.cursor()
+    result = cursor.execute("SELECT contact FROM volunteers WHERE id="+str(id))
+    contact = result.fetchone()[0]
+    conn.close()
+    return contact 
 
 def getNumberCompleted(id):
-    db = database.getVolunteersDatabase()
-    sum = 0
-    for listing in db[id]["listings"]:
-        if listing["done"] == True:
-            sum += 1
-    return sum
+    conn = sqlite3.connect('helpout.db')
+    cursor = conn.cursor()
+    result = cursor.execute("SELECT completed FROM volunteers WHERE id="+str(id))
+    num = result.fetchone()[0]
+    conn.close()
+    return num
 
 def getBadges(id):
-    db = database.getVolunteersDatabase()
-    return db[id]["badges"]
+    conn = sqlite3.connect('helpout.db')
+    cursor = conn.cursor()
+    kindness = cursor.execute("SELECT kindness, speed, diligence FROM volunteers WHERE id="+str(id))
+    kindness, speed, diligence = result.fetchall()
+    conn.close()
+    return kindness[0] + speed[0] + diligence[0]
