@@ -72,6 +72,10 @@ def sortListing(num, location):
     for i in range(length):
         result = cursor.execute("SELECT location FROM listings WHERE id="+str(i))
         suburb = result.fetchone()[0]
+        result = cursor.execute("SELECT title FROM listings WHERE id="+str(i))
+        title = result.fetchone()[0]
+        result = cursor.execute("SELECT desc FROM listings WHERE id="+str(i))
+        desc = result.fetchone()[0]
 
         subCheck = geolocator.geocode(suburb)
 
@@ -80,7 +84,7 @@ def sortListing(num, location):
 
         dist = distance.distance((currentLoc_lat,currentLoc_lng), (subCheck_lat,subCheck_lng)).km
 
-        subDist = {"Suburb":suburb, "Distance":dist}
+        subDist = {"Suburb":suburb, "Title":title, "Description":desc,"Distance":dist}
         
         closeListings.append(subDist)
 
@@ -90,7 +94,8 @@ def sortListing(num, location):
     conn.close()
 
     for i in range(min(num, length)):
-        tempList.append(closeListings[i])
+        tempDict = {key: closeListings[i][key] for key in closeListings[i].keys() & {'Suburb', 'Title', 'Description'}}
+        tempList.append(tempDict)
 
     return tempList
 
