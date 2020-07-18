@@ -78,16 +78,17 @@ def sortListing(num, location):
 
         dist = distance.distance((currentLoc_lat,currentLoc_lng), (subCheck_lat,subCheck_lng)).km
 
-        subDist = (subCheck, dist)
+        subDist = {"Suburb":suburb, "Distance":dist}
+        
         closeListings.append(subDist)
 
-    closeListings = closeListings.sort(key = lambda x: x[1]) # sort by distance
+    closeListings = sorted(closeListings, key = lambda x: x['Distance']) # sort by distance
     tempList = []
 
     conn.close()
 
     for i in range(num):
-        tempList.append(closeListings[i][1])
+        tempList.append(closeListings[i])
 
     return tempList
 
