@@ -28,7 +28,7 @@ class Volunteer extends Component{
 
     componentDidMount(){
         setTimeout(() => {
-            getListings(1, "Kensington").then(response => this.setState({listings:response}))
+            getListings(5, "Kensington").then(response => this.setState({listings:response}))
                 .then(json => this.setState({done:true}))
         }, 1200)
     }
