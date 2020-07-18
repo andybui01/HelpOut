@@ -63,7 +63,7 @@ def listingCommitment():
 
 @app.route('/listing/location', methods=["GET"])
 def listingLocation():
-	return dumps(listing.getLocation(request.args.get('listing_location')))
+	return dumps(listing.getLocation(request.args.get('listing_id')))
 
 @app.route('/listings', methods=["GET"])
 def listings():
