@@ -1,35 +1,49 @@
-import React, {Component} from 'react'
-import ListView from './ListView' 
+import React from "react"
+import {BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+} from "react-router-dom";
 
-class App extends Component{
-    state = {
-        listings: [ // Loading into this json list will load onto the listings view.
-        {
-            title: 'example',
-            desc: 'here is an example thing ',
-            generalLocation: 'nup'
-        },
-        ],
-    }
+import Volunteer from './Volunteer'
 
-    adminRemoveListing = (index) => {
-        const {listings} = this.state
-
-        this.setState({
-            listings: listings.filter((listing, i)=>{
-                return i !== index
-            })
-        })
-    }
-    render() {
-        const {listings} = this.state
-
-        return (
-            <div className="container">
-                <h1> Help Out! </h1>
-                <ListView listings={listings} adminRemoveListing={this.adminRemoveListing}/>
-            </div>
-        )
-    }
+export default function App(){
+    return (
+        <Router>
+            <div>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/volunteer">Help someone out!</Link>
+                        </li>
+                        <li>
+                            <Link to="/reachout">I need help!</Link>
+                        </li>
+                    </ul>
+                </nav>
+            <Switch>
+                <Route path="/volunteer">
+                    <Volunteer />
+                </Route>
+                <Route path="/reachout">
+                    <ReachOut />
+                </Route>
+                <Route path="/">
+                    <Home />
+                </Route>
+            </Switch>
+        </div>
+        </Router>
+    );
 }
-export default App
+
+function Home() {
+    return <h2>Home</h2>;
+}
+
+function ReachOut() {
+    return <h2>I need help!</h2>;
+}
