@@ -96,7 +96,6 @@ def sortListing(num, location):
     for i in range(min(num, length)):
         tempDict = {key: closeListings[i][key] for key in closeListings[i].keys() & {'Suburb', 'Title', 'Description'}}
         tempList.append(tempDict)
-
     return tempList
 
 
