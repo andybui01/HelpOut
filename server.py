@@ -1,8 +1,25 @@
-from backend import listing, volunteer
+from backend import listing, volunteer, person
 
 from json import dumps
 from flask import Flask, request
 app = Flask(__name__)
+
+""" Person """
+@app.route('/person/name', methods=["GET"])
+def personName():
+	return dumps(person.getName(request.args.get('person_id')))
+
+@app.route('/person/contact', methods=["GET"])
+def personContact():
+	return dumps(person.getContact(request.args.get('person_id')))
+
+@app.route('/person/create', methods=["POST"])
+def listingCreate():
+	return dumps(person.createVolunteering(
+		request.form.get('person_id'),
+		request.form.get('name'),
+		request.form.get('contact')
+		))
 
 """ Volunteer """
 @app.route('/volunteer/name', methods=["GET"])
@@ -20,6 +37,14 @@ def volunteerCompleted():
 @app.route('/volunteer/badges', methods=["GET"])
 def volunteerBadges():
 	return dumps(volunteer.getBadges(request.args.get('volunteer_id')))
+
+@app.route('/volunteer/create', methods=["POST"])
+def listingCreate():
+	return dumps(volunteer.createVolunteering(
+		request.form.get('volunteer_id'),
+		request.form.get('name'),
+		request.form.get('contact')
+		))
 
 """ Listings """
 @app.route('/listing/title', methods=["GET"])
