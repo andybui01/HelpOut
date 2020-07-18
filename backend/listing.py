@@ -1,12 +1,13 @@
 import pickle
-from opencage.geocoder import OpenCageGeocoder
 from backend import database
+from geopy.geocoders import Nominatim
+from geopy import distance
 
 openCageAPIKey = '314a7cb65c1c4dcfb675e5da37bc26bc'
 
 def getTitle(id):
-    database = database.readListingsDatabase()
-    return database[id]['Title']
+    db = database.readListingsDatabase()
+    return db[id]['Title']
 
 def getDesc(id):
     db = database.readListingsDatabase()
@@ -33,23 +34,24 @@ def sortListing(id):
     closeListings = []
 
     db = database.readListingsDatabase()
-    geocoder = OpenCageGeocode(openCageAPIKey)
+    geolocator = Nominatim(user_agent = 'myGeocoder')
 
-    currentuburb = str(db[id]['Location'])
-    currentLoc = geocoder.geocode(suburb)
-    currentLoc_lat = currentLoc[0]['geometry']['lat']
-    currentLoc_lng = currentLoc[0]['geometry']['lng']
+    currentsuburb = str(db[id]['Location'])
+    currentLoc = geolocator.geocode(currentsuburb)
+    currentLoc_lat = currentLoc.latitude
+    currentLoc_lng = currentLoc.longitude
 
     for listing in db:
         suburb = str(db[listing]['Location'])  
-        subCheck = geocoder.geocode(suburb, countrycode = au)
 
-        subCheck_lat = subCheck[0]['geometry']['lat']
-        subCheck_lng = subCheck[0]['geometry']['lng']
+        location = geolocator.geocode(suburb)
 
-        distance = geodesic((currentLoc_lat,currentLoc_lng), (subCheck_lat,subCheck_lng)).kilometers
+        subCheck_lat = location.latitude
+        subCheck_lng = location.longitude
 
-        listing = (suburb, distance)
+        dist = distance.distance((currentLoc_lat,currentLoc_lng), (subCheck_lat,subCheck_lng)).kilometers
+
+        listing = (suburb, dist)
         closeListings.append(listing)
 
     closeListings = closeListings.sort(key = lambda x: x[1]) # sort by distance
