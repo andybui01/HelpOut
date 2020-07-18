@@ -54,6 +54,7 @@ def nextID():
 
 
 def sortListing(num, location):
+    num = int(num)
 
     closeListings = []
 
@@ -65,10 +66,11 @@ def sortListing(num, location):
 
     conn = sqlite3.connect('helpout.db')
     cursor = conn.cursor()
-    length = cursor.execute("SELECT COUNT(*) FROM listings")
-    len = length.fetchone()[0]
+    result = cursor.execute("SELECT COUNT(*) FROM listings")
+    length = int(result.fetchone()[0])
 
-    for i in range(len):
+
+    for i in range(length):
         result = cursor.execute("SELECT location FROM listings WHERE id="+str(i))
         suburb = result.fetchone()[0]
 
