@@ -38,6 +38,9 @@ def listingCommitment():
 def listingLocation():
 	return dumps(listing.getLocation(request.args.get('listing_location')))
 
+def @app.route('/listings', methods=["GET"]):
+	return dumps(listing.sortListing(request.args.get('num'), request.args.get('suburb')))
+
 @app.route('/listing/create', methods=["POST"])
 def listingCreate():
 	return dumps(listing.createListing(
