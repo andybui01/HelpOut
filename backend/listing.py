@@ -62,6 +62,7 @@ def sortListing(num, suburb):
             "location": "Randwick"
         }
     ]
+    return ret
 
 def createListing(personID = None, title = None, desc = None, commitment = None, location = None):
     conn = sqlite3.connect('helpout.db')
