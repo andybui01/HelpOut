@@ -89,7 +89,7 @@ def sortListing(num, location):
 
     conn.close()
 
-    for i in range(num):
+    for i in range(min(num, length)):
         tempList.append(closeListings[i])
 
     return tempList
