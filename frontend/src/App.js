@@ -6,6 +6,7 @@ import {BrowserRouter as Router,
 } from "react-router-dom";
 
 import Volunteer from './Volunteer'
+import ReachOut from './ReachOut'
 
 export default function App(){
     return (
@@ -42,8 +43,4 @@ export default function App(){
 
 function Home() {
     return <h2>Home</h2>;
-}
-
-function ReachOut() {
-    return <h2>I need help!</h2>;
 }
