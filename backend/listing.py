@@ -71,32 +71,41 @@ def sortListing(num, location):
 
     for i in range(length):
         result = cursor.execute("SELECT location FROM listings WHERE id="+str(i))
-        suburb = result.fetchone()[0]
+        location = result.fetchone()[0]
         result = cursor.execute("SELECT title FROM listings WHERE id="+str(i))
         title = result.fetchone()[0]
         result = cursor.execute("SELECT desc FROM listings WHERE id="+str(i))
         desc = result.fetchone()[0]
 
-        subCheck = geolocator.geocode(suburb)
+        subCheck = geolocator.geocode(location)
 
         subCheck_lat = subCheck.latitude
         subCheck_lng = subCheck.longitude
 
         dist = distance.distance((currentLoc_lat,currentLoc_lng), (subCheck_lat,subCheck_lng)).km
 
-        subDist = {"Suburb":suburb, "Title":title, "Description":desc,"Distance":dist}
+        subDist = {"id": str(i), "location":location, "title":title, "desc":desc,"distance":dist}
         
         closeListings.append(subDist)
 
-    closeListings = sorted(closeListings, key = lambda x: x['Distance']) # sort by distance
-    tempList = []
+    sortedListings = sorted(closeListings, key = lambda x: x['distance']) # sort by distance
+
+    ret = {}
 
     conn.close()
 
     for i in range(min(num, length)):
-        tempDict = {key: closeListings[i][key] for key in closeListings[i].keys() & {'Suburb', 'Title', 'Description'}}
-        tempList.append(tempDict)
-    return tempList
+        listing = sortedListings[i]
+
+        ret[listing["id"]] = {
+            "location": listing["location"],
+            "title": listing["title"],
+            "desc": listing["desc"]
+        }
+
+    print(ret)
+    
+    return ret
 
 
 def createListing(personID = None, title = None, desc = None, commitment = None, location = None):
