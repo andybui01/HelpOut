@@ -39,8 +39,8 @@ def personContact():
 	return dumps(person.getContact(request.args.get('person_id')))
 
 @app.route('/person/create', methods=["POST"])
-def listingCreate1():
-	return dumps(person.createVolunteering(
+def personCreate():
+	return dumps(person.createPerson(
 		request.form.get('person_id'),
 		request.form.get('name'),
 		request.form.get('contact')
@@ -99,7 +99,7 @@ def listingCreate():
 		request.form.get('title'),
 		request.form.get('desc'),
 		request.form.get('commitment'),
-		request.form.get('location')
+		request.form.get('suburb')
 		))
 
 if __name__ == '__main__':

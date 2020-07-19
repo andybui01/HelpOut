@@ -103,7 +103,6 @@ def sortListing(num, location):
             "desc": listing["desc"]
         }
 
-    print(ret)
     
     return ret
 
