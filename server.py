@@ -21,12 +21,11 @@ def volunteerPage():
 
 @app.route("/reviewPage", methods=["GET", "POST"])
 def reviewPage():
-	volunteerDetails = {"0" : {
+	volunteerDetails = {
 	"name" : "James",
 	"contact" : "0401010101",
 	"number" : "10",
-	"badges" : "Fast"
-	}}
+	"badges" : "Fast"}
 	return render_template('review.html', **volunteerDetails)
 
 """ Person """
