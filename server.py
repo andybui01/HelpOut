@@ -1,10 +1,32 @@
 from backend import listing, volunteer, person
 
 from json import dumps
-from flask import Flask, request
-from flask_cors import CORS
+import sys
+from flask import Flask, request, redirect, url_for, render_template
 app = Flask(__name__)
-CORS(app)
+
+'''Pages'''
+@app.route("/")
+def start():
+	return redirect(url_for('homePage'))
+
+@app.route("/homePage", methods=["GET", "POST"])
+def homePage():
+	return render_template('home.html')
+
+@app.route("/volunteerPage", methods=["GET", "POST"])
+def volunteerPage():
+	allListings = listing.sortListing("5", "Kensington")
+	return render_template('volunteer.html', test = allListings)
+
+@app.route("/reviewPage", methods=["GET", "POST"])
+def reviewPage():
+	volunteerDetails = {
+	"name" : "James",
+	"contact" : "0401010101",
+	"number" : "10",
+	"badges" : "Fast"}
+	return render_template('review.html', **volunteerDetails)
 
 """ Person """
 @app.route('/person/name', methods=["GET"])
@@ -41,7 +63,7 @@ def volunteerBadges():
 	return dumps(volunteer.getBadges(request.args.get('volunteer_id')))
 
 @app.route('/volunteer/create', methods=["POST"])
-def volunteerCreate():
+def listingCreate2():
 	return dumps(volunteer.createVolunteering(
 		request.form.get('volunteer_id'),
 		request.form.get('name'),
@@ -63,7 +85,7 @@ def listingCommitment():
 
 @app.route('/listing/location', methods=["GET"])
 def listingLocation():
-	return dumps(listing.getLocation(request.args.get('listing_id')))
+	return dumps(listing.getLocation(request.args.get('listing_location')))
 
 @app.route('/listings', methods=["GET"])
 def listings():
@@ -80,4 +102,4 @@ def listingCreate():
 		))
 
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True, port = 8000)

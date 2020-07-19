@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Help Out</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="static/layout.css" rel="stylesheet" type="text/css" media="all">
+  <style>
+      #map{
+          height: 400px;
+          width: 800px;
+      }
+  </style>
+</head>
+<body id="top">
+<div class="wrapper row4">
+    <nav id="mainav" class="hoc clear"> 
+    <ul class="clear">
+        <li><a href="homePage">Home</a></li>
+        <li class="active"><a href="volunteerPage">Volunteer</a></li>
+        <li><a href="reviewPage">User</a></li>
+        <li><a href="#">Opportunities</a></li>
+    </ul>
+    </nav>
+</div>
+
+<div class="wrapper row3">
+  <main class="hoc container clear"> 
+    <div class="volunteertitle">
+      <h3 class="heading">Find A Request</h6>
+      <p>Choose from requests in your local area</p>
+    </div>
+    <div class="googlemaps">
+        <!--
+        <div id="map"></div>
+        <script>
+            function initMap() {
+                var unsw = {lat:-34.00, lng:151.00};
+                var map = new google.maps.Map(
+                    document.getElementById("map"), {zoom: 5, center: unsw});
+                var marker = new google.maps.Marker({position: {lat:-40, lng:160}, map:map});
+                var marker1 = new google.maps.Marker({position: {lat:-39, lng:150}, map:map});
+                var marker2 = new google.maps.Marker({position: {lat:-38, lng:150}, map:map});
+                var marker3 = new google.maps.Marker({position: {lat:-37, lng:150}, map:map});
+            }
+        </script>
+        <script async defer
+        src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCJbqS4m-K1kM9Vc0clP8MG7kzLEhT_SNc&callback=initMap">
+        </script>
+        -->
+        <iframe src="https://maps.google.com/maps?width=800&amp;height=400&amp;hl=en&amp;q=UNSW+()&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" width="800" height="400" frameborder="0"></iframe>
+        </div>
+    
+    <ul class="requestbox">
+      <div class="request">
+        <script>
+        </script>
+        <article>
+          <h6 class="heading">{{0.title}}</h6>
+          <p>{{0.desc}}</p>
+          <p class="dist">Suburb = {{0.location}}</p>
+          <footer><a class="btn" href="reviewPage">Learn More</a></footer>
+        </article>
+        </div>
+    </ul>
+    {% for key, value in test.items()%}
+    <ul class="requestbox">
+        <div class="request">
+          <article>
+            <h6 class="heading">{{value.title}}</h6>
+            <p>{{value.desc}}</p>
+            <p class="dist">Suburb = {{value.location}}</p>
+            <footer><a class="btn" href="#">Learn More</a></footer>
+          </article>
+        </div>
+    </ul>
+    {% endfor %}
+    <div class="clear"></div>
+  </main>
+</div>
+
+<div class="wrapper row5">
+  <div id="copyright" class="hoc clear"> 
+    <p class="fl_left">2020. TBA Co.</p>
+    <p class="fl_right">Made for the 2020 CSE Hackathon.</p>
+  </div>
+</body>
+</html>
