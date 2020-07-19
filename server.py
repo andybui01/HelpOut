@@ -76,7 +76,7 @@ def listingCreate():
 		request.form.get('title'),
 		request.form.get('desc'),
 		request.form.get('commitment'),
-		request.form.get('location')
+		request.form.get('suburb')
 		))
 
 if __name__ == '__main__':
