@@ -17,7 +17,7 @@ def personContact():
 
 @app.route('/person/create', methods=["POST"])
 def personCreate():
-	return dumps(person.createVolunteering(
+	return dumps(person.createPerson(
 		request.form.get('person_id'),
 		request.form.get('name'),
 		request.form.get('contact')

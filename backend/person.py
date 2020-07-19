@@ -35,3 +35,11 @@ def getListings(id):
     conn.close()
     return listOfListings
 
+def createPerson(id, name, contact):
+    conn = sqlite3.connect('helpout.db')
+    cursor = conn.cursor()
+    id = nextID()
+    items = (str(id), name, contact)
+    cursor.execute("INSERT INTO persons VALUES (?,?,?)", items)
+    conn.commit()
+    conn.close()
