@@ -35,7 +35,7 @@ const ListBody = (props) => {
         return (<>
             <tr key={index}>
                 <th>{row.title}</th>
-                <th>{row.Suburb}</th>
+                <th>{row.location}</th>
             </tr>
             <tr>
                 <td colSpan="2">{row.desc}</td>

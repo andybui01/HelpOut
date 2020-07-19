@@ -88,23 +88,16 @@ def sortListing(num, location):
         
         closeListings.append(subDist)
 
-    sortedListings = sorted(closeListings, key = lambda x: x['distance']) # sort by distance
-
-    ret = {}
+    closeListings = sorted(closeListings, key = lambda x: x['distance']) # sort by distance
+    tempList = []
 
     conn.close()
 
-    for i in range(min(num, length)):
-        listing = sortedListings[i]
+    for i in range(num):
+        tempDict = {key: closeListings[i][key] for key in closeListings[i].keys() & {'location', 'title', 'desc'}}
+        tempList.append(tempDict)
 
-        ret[listing["id"]] = {
-            "location": listing["location"],
-            "title": listing["title"],
-            "desc": listing["desc"]
-        }
-
-    
-    return ret
+    return tempList
 
 
 def createListing(personID = None, title = None, desc = None, commitment = None, location = None):
